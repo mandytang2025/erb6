@@ -14,7 +14,7 @@ class ListingAdmin(admin.ModelAdmin):
     list_editable = 'is_publish', 'price'
     search_fields = 'title', 'description', 'address', 'price'
     list_per_page = 25
-    ordering = ['-id']
+   ## ordering = ['-id']
     prepopulated_fields = {'title' : ('title',)}
     formfield_overrides = {
         models.IntegerField: {'widget' : NumberInput(attrs= {'size': '10'})}}
