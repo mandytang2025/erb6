@@ -31,48 +31,40 @@
       </div>
     </section>
 
+    {% include "partials/_alert.html" %}
+
+
     <section id="dashboard" class="py-4">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          {% comment %} fix {% endcomment %}
             <h2>Welcome {{user.first_name | title}} {{user.last_name | title}}</h2>
+    {% if contacts %}
             <p>Here are the property listings that you have inquired about</p>
             <table class="table">
               <thead>
                 <tr>
-                {% comment %} fix {% endcomment %}
                   <th scope="col">#</th>
                   <th scope="col">Property</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
+                {% for contact in contacts %}
                 <tr>
-                  <td>22</td>
-                  {% comment %} title {% endcomment %}
-                  <td>{{listing.title | title}}</td>
+                  <td>{{contact.id}}</td>
+                  <td>{{contact.listing}}</td>
                   <td>
-                  {% comment %} fix {% endcomment %}
-                    <a class="btn btn-light" href={% url "listings:listings" %}>View Listing</a>
+                    <a class="btn btn-light" href={% url 'listings:listing' contact.listing_id %}>View Listing</a>
+                    <a href="{% url 'contacts:delete_contact' contact.id %}" class="btn btn-danger">Delete Listing</a>
+                    <a href="{% url 'contacts:edit_contact' contact.id %}" class="btn btn-danger">Edit Listing</a>
                   </td>
                 </tr>
-                <tr>
-                  <td>43</td>
-                  <td>22 Westbrook rd</td>
-                  <td>
-                    <a class="btn btn-light" href={% url "listings:listings" %}>View Listing</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>31</td>
-                  <td>12 Samson Ave</td>
-                  <td>
-                    <a class="btn btn-light" href={% url "listings:listings" %}>View Listing</a>
-                  </td>
-                </tr>
+                {% endfor %}
+               
               </tbody>
             </table>
+    {% endif %}
           </div>
         </div>
       </div>
