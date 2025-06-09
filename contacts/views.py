@@ -25,7 +25,7 @@ def contact(request):
             if has_contacted:
                 messages.error(request, "You have already made an inquiry for this listing")
                 return redirect('listings:listing', listing_id=listing_id)
-        print(email)    
+          
         contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email, phone=phone, message=message, user_id=user_id)
         contact.save()
         send_mail(
@@ -37,23 +37,22 @@ def contact(request):
         )
         messages.success(request, "Your request has been submitted, a realtor will get back to you soon")
         
-        return redirect('listings:listing', listing_id=listing_id)
-    
- 
+        return redirect('listings:listing', listing_id=listing_id) 
 
-def delete_contact(request, contact_id):
-    contact= get_object_or_404(Contact, pk=contact_id)
+def delete_contact(request,contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id)
     contact.delete()
     return redirect("accounts:dashboard")
 
-def edit_contact(request, contact_id):
+def edit_contact(request,contact_id):
     contact = get_object_or_404(Contact, pk=contact_id)
-    if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
+    if request.method == "POST":
+        form = ContactForm(request.POST,instance=contact)
         if form.is_valid():
             form.save()
             return redirect("accounts:dashboard")
     else:
-        form = ContactForm(instance=contact)
-            
-    return render(request, "contacts/edit_message.html", {"form":form})
+        form = ContactForm(instance=contact)    
+        
+    return render(request,"contacts/edit_message.html",{"form":form})
+    

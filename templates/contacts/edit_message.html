@@ -1,6 +1,17 @@
-{% }
+{% extends "base.html" %} {% block content %}
 
-<form method="POST">
-    {% csrf_token %} {{form.message}}
-    <button type="submit">Send</button>
-</form>
+<div class="container mt-5">
+    <div class="row justity-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="tesxt-centre">Edit Message</h1>
+                <form method="POST">
+                    {% csrf_token %} {{ form.message }}
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>  
+</div>
+{% endblock content %}
